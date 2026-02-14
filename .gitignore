@@ -1,0 +1,31 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Sensitive files
+*.pem
+*.key
+*.tfvars
+!env/dev/terraform.tfvars
+!env/qa/terraform.tfvars
+!env/prod/terraform.tfvars
+
+# OS
+.DS_Store
+Thumbs.db
+# Local terraform directory (contains heavy binaries)
+.terraform/
+
+# State files (contain sensitive info like passwords/IPs)
+*.tfstate
+*.tfstate.backup
+
+# Variables files
+*.tfvars
