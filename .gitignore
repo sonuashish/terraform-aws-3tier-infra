@@ -28,4 +28,3 @@ Thumbs.db
 *.tfstate.backup
 
 # Variables files
-*.tfvars
