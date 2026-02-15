@@ -27,7 +27,7 @@ pipeline {
                 checkout scmGit(
                     branches: [[name: '*/main']],
                     extensions: [],
-                    userRemoteConfigs: [[url: '']]
+                    userRemoteConfigs: [[url: 'https://github.com/sonuashish/terraform-aws-3tier-infra.git']]
                 )
             }
         }
