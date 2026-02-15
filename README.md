@@ -1,103 +1,117 @@
-<<<<<<< HEAD
-# AWS 3-Tier Infrastructure using Terraform & Jenkins
+🚀 Production-Grade AWS Infrastructure using Terraform & Jenkins
+📌 Project Overview
 
-This project provisions a production-style AWS infrastructure using Terraform modules and Jenkins CI/CD pipeline.
+This project provisions a production-style AWS infrastructure using Terraform modules and automates deployment through a parameterized Jenkins CI/CD pipeline.
 
-## Architecture
-- VPC
-- Public & Private Subnets
-- Internet Gateway
-- NAT Gateway
-- Route Tables
-- Security Groups
-- EC2 Instances (Web, App, DB)
-- EBS Volumes
+The goal was to simulate real-world DevOps practices including environment isolation, infrastructure governance, and safe production deployment.
 
-## Environments
+🏗 Architecture
+
+The infrastructure includes:
+
+VPC with custom CIDR
+
+Public & Private Subnets
+
+Internet Gateway
+
+NAT Gateway
+
+Route Tables
+
+Security Groups
+
+EC2 Instances (Web/App/DB pattern)
+
+EBS (gp3, 20GB optimized)
+
+Jenkins server auto-configured via user_data
+
+Amazon Linux 2023 AMI is dynamically fetched using Terraform data source.
+
+📂 Project Structure
+modules/
+   networking/
+   compute/
+
+env/
+   dev/
+   qa/
+   prod/
+
+Jenkinsfile
+
+🌍 Environment Strategy
+
 Terraform Workspaces:
-- dev
-- qa
-- prod
 
-Each environment uses separate tfvars.
+dev
 
-## Run Locally
+qa
+
+prod
+
+Each environment uses:
+
+Separate tfvars
+
+Isolated state
+
+Dedicated deployment approval gates
+
+Production destroy is blocked via pipeline guardrails.
+
+🔄 CI/CD Pipeline (Jenkins)
+
+Pipeline Features:
+
+Parameterized ENV (dev / qa / prod)
+
+Parameterized ACTION (plan / apply / destroy)
+
+Auto workspace bootstrap
+
+tfvars validation
+
+terraform validate before plan
+
+Approval gate for apply/destroy
+
+Production protection
+
+Concurrent build protection
+
+Infrastructure lifecycle is fully automated via Jenkins.
+
+🛠 Technologies Used
+
+Terraform
+
+AWS (EC2, VPC, NAT, EBS)
+
+Jenkins
+
+GitHub
+
+Amazon Linux 2023
+
+Bash scripting
+
+🚀 How to Run Locally
 terraform init
 terraform workspace select dev
 terraform plan -var-file=env/dev/terraform.tfvars
 
-## CI/CD
-Jenkins pipeline automatically:
-- creates workspaces
-- validates environment
-- plans/applies infrastructure
-- protects production from destroy
-=======
-Infrastructure as Code (IaC) project to provision AWS EC2 instances and EBS volumes using Terraform, automated through a parameterized Jenkins Pipeline with remote state management (S3 + DynamoDB locking).
+🎯 Key Learnings
 
-🚀 Terraform + Jenkins AWS Infrastructure Automation
+Modular Infrastructure as Code design
 
-This project provisions AWS infrastructure using Terraform and automates deployments through a Jenkins CI/CD Pipeline.
-The infrastructure is managed using a remote backend stored in Amazon S3 with DynamoDB state locking to support team collaboration and prevent state conflicts.
+Multi-environment state isolation
 
-🧱 Infrastructure Created
-VPC
-Public Subnet
-Security Groups
-EC2 Instances
-3 EBS volumes attached to each EC2
-Remote Terraform State (S3)
-State Locking (DynamoDB)
+CI/CD governance patterns
 
-⚙️ Tech Stack Tool Purpose 
-Amazon Web Services Cloud Infrastructure 
-Terraform Infrastructure as Code 
-Jenkins CI/CD Automation 
-Git Version Control 
-Linux Execution Environment 
+Safe production controls
 
-🔐 Remote Backend Configuration
+Infrastructure automation via user_data
 
-Terraform state is stored remotely for team usage.
-S3 Bucket: terraform-state-list-snapshots 
-DynamoDB Table: terraform-state-file-dynamodb-table 
-Region: ap-south-1
-
-Benefits:
-Prevents state corruption
-Enables team collaboration
-Provides locking mechanism
-
-🧪 Jenkins Pipeline (Parameterized)
-
-The pipeline supports 3 actions:
-Parameter Function plan Preview infrastructure changes apply Deploy infrastructure destroy Remove infrastructure
-The user selects environment workspace before execution.
-
-▶️ How to Run 
-
-1️⃣ Clone Repo git clone https://github.com//terraform-jenkins-aws-infra.git cd terraform-jenkins-aws-infra
-2️⃣ Initialize Terraform terraform init
-3️⃣ Select Workspace terraform workspace new dev terraform workspace select dev
-4️⃣ Run terraform plan terraform apply
-🔁 CI/CD Flow
-
-Developer Push → Jenkins Trigger → Terraform Init → Workspace Select → Plan/Apply/Destroy → AWS Infra Update
-
-📌 Key DevOps Concepts Demonstrated
-
-Infrastructure as Code
-Immutable Infrastructure
-Remote State Management
-State Locking
-Parameterized Pipelines
-Multi-Environment Deployment
-Automated Provisioning
-
-🧠 Learning Outcome
-This project demonstrates how real production infrastructure is deployed in organizations using CI/CD pipelines and Terraform automation.
-
-👨‍💻 Author
-Ashish Ranjan Mahato
-
->>>>>>> 30e3a82eb19e1a6f6526085402b9e693535e6d80
+Disk & JVM optimization for Jenkins
