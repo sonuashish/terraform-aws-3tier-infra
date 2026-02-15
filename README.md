@@ -115,3 +115,5 @@ Safe production controls
 Infrastructure automation via user_data
 
 Disk & JVM optimization for Jenkins
+
+*Note: The deployment of Jenkins Server is not in this repository. Please check the link ; to get the Jenkins Server Deployment Repository
